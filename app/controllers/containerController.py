@@ -15,15 +15,14 @@ class ContainerController(Resource):
         print(request.get_json())             
         auth = request.headers.get('Authorization')
         
-        if not auth:
-            abort(401, message="Not Authorized")
-            
-        jwt = auth.split('Bearer ')[1]
-        
         auth_key_expected = environ.get('AUTH_KEY')
         
-        if jwt != auth_key_expected:
-            abort(401, message="Not Authorized")
+        if auth_key_expected != None:        
+            if not auth:
+                abort(401, message="Not Authorized")                
+            jwt = auth.split('Bearer ')[1]          
+            if jwt != auth_key_expected:
+                abort(401, message="Not Authorized")
              
         data = request.get_json()
         

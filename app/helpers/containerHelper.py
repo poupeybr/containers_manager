@@ -1,8 +1,14 @@
 import docker
+from os import environ 
 
 class ContainerHelper():
     def __init__(self):
         self.client = docker.from_env()
+        dockerUsername = environ.get('DOCKER_USERNAME')
+        dockerPassword = environ.get('DOCKER_PASSWORD')
+        dockerRegistry = environ.get('DOCKER_REGISTRY')        
+        if dockerUsername != None and dockerPassword != None and dockerRegistry != None:        
+            self.client.login(username=dockerUsername, password=dockerPassword, registry=dockerRegistry)
 
     def does_the_container_exist(self, containername):
         containers = self.client.containers.list(
