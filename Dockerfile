@@ -4,4 +4,4 @@ WORKDIR /opt/app
 RUN pip install -r requirements.txt
 COPY . /opt/app
 WORKDIR /opt/app
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["python", "main.py"]
